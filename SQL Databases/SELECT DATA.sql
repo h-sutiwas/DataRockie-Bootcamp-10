@@ -1,0 +1,1 @@
+SELECT id, name, salary FROM employee LIMIT 2;
