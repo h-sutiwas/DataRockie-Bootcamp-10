@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cafe-restaurant name="The Cozy Corner">
+  <menus>
+    <menu type="Breakfast">
+      <item>
+        <name>Classic Pancakes</name>
+        <description>Fluffy pancakes served with maple syrup and butter</description>
+        <price>99</price>
+      </item>
+      <item>
+        <name>Veggie Omelette</name>
+        <description>Three-egg omelette with bell peppers, onions, and spinach</description>
+        <price>159</price>
+      </item>
+      <item>
+        <name>Avocado Toast</name>
+        <description>Whole grain toast topped with smashed avocado and cherry tomatoes</description>
+        <price>179</price>
+      </item>
+      <item>
+        <name>Eggs Benedict</name>
+        <description>Poached eggs on English muffin with ham and hollandaise sauce</description>
+        <price>189</price>
+      </item>
+      <item>
+        <name>Fruit and Yogurt Parfait</name>
+        <description>Layered Greek yogurt with fresh fruits and granola</description>
+        <price>79</price>
+      </item>
+    </menu>
+
+    <menu type="Lunch">
+      <item>
+        <name>Grilled Chicken Sandwich</name>
+        <description>Grilled chicken breast with lettuce, tomato, and mayo on a brioche bun</description>
+        <price>229</price>
+      </item>
+      <item>
+        <name>Caesar Salad</name>
+        <description>Crisp romaine lettuce with Caesar dressing, croutons, and parmesan cheese</description>
+        <price>159</price>
+      </item>
+      <item>
+        <name>Tomato Basil Soup</name>
+        <description>Creamy tomato soup with fresh basil and a grilled cheese sandwich</description>
+        <price>249</price>
+      </item>
+      <item>
+        <name>Thai Green Curry</name>
+        <description>Aromatic green curry with vegetables and choice of protein</description>
+        <price>99</price>
+      </item>
+      <item>
+        <name>Quinoa Buddha Bowl</name>
+        <description>Quinoa with roasted vegetables, avocado, and tahini dressing</description>
+        <price>179</price>
+      </item>
+    </menu>
+
+    <menu type="Dinner">
+      <item>
+        <name>Grilled Salmon</name>
+        <description>Atlantic salmon fillet with roasted vegetables and lemon butter sauce</description>
+        <price>279</price>
+      </item>
+      <item>
+        <name>Mushroom Risotto</name>
+        <description>Creamy Arborio rice with sautéed mushrooms and parmesan cheese</description>
+        <price>229</price>
+      </item>
+      <item>
+        <name>Beef Tenderloin</name>
+        <description>Pan-seared beef tenderloin with mashed potatoes and red wine reduction</description>
+        <price>329</price>
+      </item>
+      <item>
+        <name>Vegetable Lasagna</name>
+        <description>Layered pasta with seasonal vegetables and rich tomato sauce</description>
+        <price>259</price>
+      </item>
+      <item>
+        <name>Grilled Pork Chop</name>
+        <description>Juicy pork chop with apple chutney and roasted sweet potatoes</description>
+        <price>219</price>
+      </item>
+    </menu>
+
+    <menu type="Dessert">
+      <item>
+        <name>Chocolate Lava Cake</name>
+        <description>Warm chocolate cake with a gooey center, served with vanilla ice cream</description>
+        <price>149</price>
+      </item>
+      <item>
+        <name>New York Cheesecake</name>
+        <description>Classic cheesecake with a graham cracker crust and berry compote</description>
+        <price>139</price>
+      </item>
+      <item>
+        <name>Apple Pie</name>
+        <description>Homemade apple pie with a flaky crust, served warm with whipped cream</description>
+        <price>79</price>
+      </item>
+      <item>
+        <name>Mango Sticky Rice</name>
+        <description>Traditional Thai dessert with sweet sticky rice and fresh mango</description>
+        <price>59</price>
+      </item>
+      <item>
+        <name>Tiramisu</name>
+        <description>Italian coffee-flavored dessert with layers of mascarpone and ladyfingers</description>
+        <price>169</price>
+      </item>
+    </menu>
+
+    <menu type="Drinks">
+      <item>
+        <name>Cappuccino</name>
+        <description>Espresso with steamed milk and a layer of frothed milk</description>
+        <price>79</price>
+      </item>
+      <item>
+        <name>Iced Tea</name>
+        <description>Freshly brewed black tea served over ice</description>
+        <price>69</price>
+      </item>
+      <item>
+        <name>Fresh Orange Juice</name>
+        <description>Freshly squeezed orange juice</description>
+        <price>49</price>
+      </item>
+      <item>
+        <name>Thai Iced Coffee</name>
+        <description>Strong coffee mixed with sweetened condensed milk, served over ice</description>
+        <price>59</price>
+      </item>
+      <item>
+        <name>Mango Smoothie</name>
+        <description>Blended fresh mango with yogurt and a touch of honey</description>
+        <price>89</price>
+      </item>
+    </menu>
+  </menus>
+</cafe-restaurant>
