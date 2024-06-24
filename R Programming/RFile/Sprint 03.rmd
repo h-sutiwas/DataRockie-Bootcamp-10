@@ -1,0 +1,113 @@
+---
+title: "Sprint 03"
+author: "Sutiwas"
+date: "2024-06-24"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R101 / Getting Started with R
+
+## **EP02 - Create and Remove Variables**
+
+Create my R variables and removing said variables.
+
+```{r : EP02 - Create and Remove Variables}
+## create variables
+income <- 50000
+expense <- 30000
+saving <- income - expense
+
+## remove variable
+rm(saving)
+
+```
+
+## **EP03 - Compare Values**
+
+### **Comparison Operators**
+
+เราสามารถเขียน comparison operators ต่อไปนี้เพื่อเปรียบเทียบสองฝั่งของสมการได้ใน R
+
+-   `>`
+
+-   `>=`
+
+-   `<`
+
+-   `<=`
+
+-   `==` (equal)
+
+-   `!=` (not equal)
+
+🌵 Note - เราใช้เครื่องหมาย **double** equal signs `==` เพื่อเทียบสองฝั่งของสมการ ถ้าใช้ **single** equal sign เช่น `x = 5` จะเป็นการประกาศตัวแปร เพราะใน R เราสามารถสร้างตัวแปรได้สองแบบคือ `<-` หรือ `=`
+
+```{r EP03 - Compare Values}
+## compare values
+1 + 1 == 2
+2 * 2 <= 4
+5 >= 10
+5 - 2 != 3
+10 < 2
+10 > 2
+
+## compare text and characters
+"Hello" == "hello"
+"Hello" == "Hello" ### R is case sensitive
+
+```
+
+## EP04 - Data Types
+
+### **Data Types in R**
+
+ความรู้พื้นฐานเกี่ยวกับ data types คือสำคัญขั้นสุดตอนเขียนโปรแกรม ภาษาคอมพิวเตอร์หลายๆภาษาจะ strict เรื่อง **data types** มากๆ ใน R ก็เช่นเดียวกัน โดย common data types ที่ data analyst เราต้องใช้งานเป็นประจำจะมีอยู่ 5 ประเภทคือ
+
+-   `numeric`
+
+-   `character`
+
+-   `logical`
+
+-   `factor` อันนี้คือตัวแปร categorical ในทางสถิติ
+
+-   `date`
+
+🌵 R มี package `lubridate` ที่ใช้จัดการ date ได้ง่ายมาก
+
+```{r EP04 - Data Types}
+## Data Types
+
+### 1. numeric
+age <- 32
+print(age)
+class(age)
+
+### 2. character
+my_name <- "Sutiwas Jitsopak"
+my_university <- "Chulalongkorn University"
+print(my_name)
+print(my_university)
+class(my_name); class(my_university)
+
+### 3. logical
+result <- 1 + 1 == 2
+print(result)
+class(result)
+
+### 4. factor
+animals <- c("Dog", "Cat", "Crocodile", "Bird")
+class(animals)
+
+animals <- factor(animals)
+class(animals)
+
+### 5. date
+time_now <- Sys.time()
+class(time_now)
+
+```
