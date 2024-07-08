@@ -450,3 +450,233 @@ avg_by_row_mtcars[1:10]
 ------------------------------------------------------------------------
 
 # R103 / Working with Data
+
+### **Working with Data in R**
+
+R คือภาษาที่เราเรียกว่า fast data crunching ที่ถูกพัฒนาสำหรับงาน data โดยเฉพาะ
+
+ทำไมถึงต้องเรียนภาษา R
+
+-   [**Google**](https://grow.google/certificates/data-analytics/#?modal_active=none) Data Analytics บน Coursera ก็สอน R เป็นหลัก
+
+-   [**Harvard**](https://www.edx.org/professional-certificate/harvardx-data-science) Data Science Certificate สอน R อย่างเดียว 100%
+
+-   [**IBM**](https://www.coursera.org/professional-certificates/ibm-data-analyst-r-excel) ก็มีสอน Data Science with R อยู่บน Coursera
+
+-   [**Udacity**](https://www.udacity.com/course/programming-for-data-science-nanodegree-with-R--nd118) ก็มีคอร์ส nanodegree Programming for data science with R
+
+จากผลสำรวจของหลายๆเว็บไซต์ (Kaggle, DataCamp) R คือหนึ่งในสามภาษาที่ data analyst ต้องรู้จักและใช้เป็น [R, Python, SQL] และเราสามารถใช้ R อ่านไฟล์ข้อมูลได้หลายประเภท ตัวอย่างเช่น
+
+-   `.txt`
+
+-   `.csv`
+
+-   `.xlsx`
+
+-   `google sheets`
+
+-   `.json`
+
+-   `.db` (sqlite database)
+
+-   SQL databases ตัวหลักๆได้หมดเลย PostgreSQL, MySQL, MS SQL, BigQuery, AWS RedShift
+
+## R Packages for Working with Data
+
+```{r R Packages for Working with Data}
+# install packages
+install.packages(c("readr", 
+                   "readxl", 
+                   "googlesheets4",
+                   "jsonlite",
+                   "dplyr",
+                   "sqldf",
+                   "RSQLite"))
+
+# load library
+library(readr)
+library(readxl)
+library(googlesheets4)
+library(jsonlite)
+library(dplyr)
+library(sqldf)
+library(RSQLite)
+```
+
+## **EP01 - Text File**
+
+🌵 `read_table()` อ่านไฟล์ .txt ที่ใช้ whitespace เป็นตัวคั่นระหว่างคอลัมน์ (delimiter)
+
+```{r EP01 - Text File}
+# read text file
+student1 <- read_table("C:/Online Learning/DataRockie Bootcamp/DataRockie Bootcamp 10th/R Programming/data/student.txt")
+student1
+```
+
+## EP02 - CSV
+
+🌵 `read_csv()` ใช้อ่านไฟล์ .csv comma separated values เป็น common data format ที่ data analyst เราใช้กันเป็นประจำ
+
+```{r EP02 - CSV}
+# read csv file
+student2 <- read_csv("C:/Online Learning/DataRockie Bootcamp/DataRockie Bootcamp 10th/R Programming/data/student.csv")
+student2
+```
+
+## EP03 - Excel File
+
+🌵 `read_excel()` ใช้อ่านไฟล์ Excel .xlsx อ่านทีละ sheet ได้
+
+```{r EP03 - Excel File}
+# read excel file
+result <- list()
+
+for (i in 1:3) {
+  result[[i]] <- read_excel("C:/Online Learning/DataRockie Bootcamp/DataRockie Bootcamp 10th/R Programming/data/students.xlsx", sheet=i)
+}
+
+result[[1]]
+result[[2]]
+result[[3]]
+```
+
+## EP04 - Google Sheets
+
+🌵 `read_sheet()` ใช้อ่าน data จาก Google Sheets ถ้าเป็น public link ก่อนใช้คำสั่ง read_sheet() ให้เรารันคำสั่ง `gs4_deauth()` ก่อน
+
+```{r EP04 - Google Sheets}
+library(googlesheets4)
+
+url <- "https://docs.google.com/spreadsheets/d/1y5JuaUhNrdRzf_hJrdZjZHARK6kHxvoVR5U4IJuGEyQ/edit?usp=sharing"
+gs4_deauth()
+
+read_sheet(url, sheet = "Example Data")
+```
+
+## EP05 - JSON
+
+🌵 `fromJSON()` ใช้อ่านไฟล์ .json เข้ามาเป็น list ใน R แล้วค่อยใช้ฟังก์ชัน `data.frame()` เพื่อเปลี่ยน list -\> data frame ได้
+
+> JSON = JavaScript Object Notation
+
+`Key` ใน JSON ต้องเขียนใน double quote เท่านั้น ถ้าใช้ single quote จะ error
+
+```{r EP05 - JSON}
+# read JSON file
+library(jsonlite)
+
+bp <- data.frame(fromJSON("C:/Online Learning/DataRockie Bootcamp/DataRockie Bootcamp 10th/R Programming/data/blackpink.json"))
+
+View(bp)
+```
+
+## **EP06 - Bind Rows (UNION ALL)**
+
+🌵 `bind_rows()` เทียบเท่ากับการเขียน `UNION ALL` ใน SQL
+
+```{r EP06 - Bind Rows (UNION ALL)}
+# Bind Rows (UNION ALL in  SQL)
+library(dplyr)
+library(readxl)
+
+## read excel file
+econ <- read_excel("C:/Online Learning/DataRockie Bootcamp/DataRockie Bootcamp 10th/R Programming/data/students.xlsx", sheet = 1)
+business <- read_excel("C:/Online Learning/DataRockie Bootcamp/DataRockie Bootcamp 10th/R Programming/data/students.xlsx", sheet = 2)
+data <- read_excel("C:/Online Learning/DataRockie Bootcamp/DataRockie Bootcamp 10th/R Programming/data/students.xlsx", sheet = 3)
+
+## binding rows
+list_df <- list(econ, business, data)
+full_df <- bind_rows(list_df)
+```
+
+## **EP07 - Bind Cols (!= JOIN)**
+
+🌵 `bind_cols()` ไม่เทียบเท่ากับการเขียน `join` เพราะ bind columns ไม่จำเป็นต้องใช้ `key` ใดๆ แค่เอา data frame สองตัวมาวางต่อกัน ซ้าย-ขวา
+
+```{r EP07 - Bind Cols (!= JOIN)}
+# Bind Cols (!= JOIN)
+df1 <- data.frame(
+  id = 1:5,
+  name = c("John", "Marry", "Anna", "David", "Lisa")
+)
+
+df2 <- data.frame(
+  id = 1:5,
+  city = c(rep("BANGKOK", 3), rep("LONDON", 2)),
+  country = c(rep("TH", 3), rep("UK", 2))
+)
+```
+
+## **EP08 - SQL**
+
+🌵 `sqldf()` ใช้เขียน SQL เพื่อจัดการกับ dataframe ที่อยู่ใน R
+
+```{EP08 - SQL}
+# load library sqldf
+library(sqldf)
+library(readr)
+
+school <- read_csv("C:/Online Learning/DataRockie Bootcamp/DataRockie Bootcamp 10th/R Programming/data/school/school.csv")
+
+sqldf("select * from school;")
+
+sqldf("select avg(student), sum(student) from school;")
+
+sqldf("select school_id, school_name, country from school;")
+
+sql_query <- "select * from school where country = 'USA';"
+usa_school <- sqldf(sql_query)
+```
+
+## **EP09 - SQLite**
+
+### **How to read data from SQLite database**
+
+ใน R เราใช้ library `RSQLite` เพื่อจัดการกับข้อมูลใน sqlite .db file ขั้นตอนการทำงานกับ database จะแบ่งเป็น 3 steps ง่ายๆ
+
+1.  connect to database i.e. open connection
+
+2.  get data (with SQL)
+
+3.  disconnect from database i.e. close connection
+
+🌵 อ่านเพิ่มเติมเรื่อง database ใน R ได้ที่ <https://dbi.r-dbi.org/>
+
+```{r EP09 - SQLite}
+# load library
+library(RSQLite)
+
+# connect to SQLite database (.db file)
+# 1. open connection
+conn <- dbConnect(SQLite(), "C:/Online Learning/DataRockie Bootcamp/DataRockie Bootcamp 10th/R Programming/data/chinook/chinook.db")
+
+# 2. get data
+dbListTables(conn)
+dbListFields(conn, "customers")
+
+df <- dbGetQuery(conn, "select * from customers where country = 'USA'")
+df2 <- dbGetQuery(conn, "select * from customers where country = 'United Kingdom'")
+
+# 3. close connection
+dbDisconnect(conn)
+```
+
+## **EP10 - How to save data in R**
+
+### **Save Data in R**
+
+🌵 เราสามารถ save data ใน R ได้สองแบบ และสามารถโหลดข้อมูลกลับมาใช้ได้อีกครั้งในอนาคต
+
+-   `save.image()` ใช้ save objects ทั้งหมดที่อยู่ใน environment (i.e. workspace) ของเราเข้าไปที่ไฟล์ `.RData`
+
+-   `saveRDS()` ใช้ save single object แค่ไฟล์เดียวที่ไฟล์ `.rds`
+
+ถ้าต้องการโหลด .RData ให้ใช้ฟังก์ชัน `load()` หรือถ้าอยากจะโหลด .rds ให้ใช้ฟังก์ชัน `readRDS()`
+
+```{r EP10 - How to save data in R}
+saveRDS(business, file = "business.rds")
+readRDS("business.rds")
+
+business <- readRDS("business.rds")
+save.image()
+```
