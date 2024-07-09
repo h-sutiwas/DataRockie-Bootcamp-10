@@ -1,0 +1,143 @@
+---
+title: "Sprint 04"
+author: "Sutiwas"
+date: "2024-07-09"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Sprint 04 - Data Transformation
+
+5 functions หลักของ dplyr ประกอบด้วย
+
+-   `select()`
+
+-   `filter()`
+
+-   `mutate()`
+
+-   `arrange()`
+
+-   `summarise()` อันนี้เขียนได้สองแบบ `summarize()`
+
+**Typical workflow** ของ data analyst ที่เขียน `R` คือ
+
+-   ดึงข้อมูลจาก SQL databases หรือ data format ต่างๆเข้าสู่ R
+
+-   เขียน `dplyr` เพื่อจัดการ data frame จะ merge, join, union, transform ทำได้หมดเลย
+
+-   ส่ง transformed data ให้ users ของเรา (e.g. `csv`, `excel`, `json`) หรือส่งไปให้ software อื่นๆใช้งานต่อ เช่น Power BI, Tableau, Google Sheets, Data Studio
+
+## **EP02 - Read CSV Files**
+
+`library(readr)`
+
+`read_csv("directory/filename.csv")`
+
+```{r EP02 - Read CSV Files}
+## install packages
+install.packages("dplyr")
+
+## load packages
+library(dplyr)
+
+## read csv file into RStudio
+imdb <- read.csv("C:/Online Learning/DataRockie Bootcamp/DataRockie Bootcamp 10th/R Programming/data/imdb/imdb.csv", stringsAsFactors = FALSE)
+View(imdb)
+
+## review data structure
+glimpse(imdb)
+
+## print head and tail of imdb data
+head(imdb, 10)
+tail(imdb, 10)
+```
+
+## **EP03 - Select Columns**
+
+### **Pipe Operator**
+
+`dplyr` มาพร้อมกับ pipe operator `%>%` ที่ใช้ในการเขียน pipeline (ตามชื่อของมันเลย) ตัวอย่าง code ด้านล่างทั้งสองแบบได้ผลลัพธ์เหมือนกัน
+
+JAVASCRIPT
+
+`# load dplyr`
+
+`library(dplyr)`
+
+`# select columns`
+
+`select(mtcars, mpg, wt, hp)`
+
+`mtcars %>% select(mpg, wt, hp)`
+
+🌵 ข้อดีของการเขียน `%>%` คือเราสามารถเชื่อมฟังก์ชันของเราได้หลาย steps เช่น
+
+`df %>% select() %>% filter() %>% mutate() %>% arrange()`
+
+```{r EP03 - Select Columns}
+# select columns
+select(imdb, MOVIE_NAME, RATING)
+select(imdb, 1, 5)
+
+select(imdb, movie_name = MOVIE_NAME, release_year = YEAR)
+
+## pipe operator %>% call function without select function
+## easy to create data pipelines [df %>% select() %>% filter() %>% mutate() %>% arrange()]
+
+head(imdb)
+imdb %>% 
+  select(movie_name = MOVIE_NAME, release_year = YEAR) %>%
+  head()
+imdb %>% 
+  select(MOVIE_NAME, RATING)
+```
+
+## **EP04 - Filter Data Part I**
+
+```{r EP04 - Filter Data Part I}
+## filter data
+filter(imdb, SCORE >= 9.0)
+
+imdb %>% filter(SCORE >= 9.0)
+
+names(imdb) <- tolower(names(imdb))
+
+imdb %>%
+    select(movie_name, year, score) %>%
+    filter(score >= 9.0 & year > 2000)
+
+imdb %>%
+  select(movie_name, year, score) %>%
+  filter(score == 8.8 | score == 8.3 | score == 9.0)
+
+imdb %>%
+  select(movie_name, year, score) %>%
+  filter(score %in% c(8.3, 8.8, 9.0))
+```
+
+## **EP05 - Filter Data Part II**
+
+```{r EP05 - Filter Data Part II}
+## filter string columns
+
+# grepl("Drama", imdb$genre) help find "Drama" within genre string columns 
+# while ignoring their position or if said movie have other genre type inside their string.
+
+imdb %>%
+  select(movie_name, genre, rating) %>%
+  filter(rating == "PG-13")
+
+imdb %>%
+  select(movie_name, genre, rating) %>%
+  filter(grepl("Drama", imdb$genre))
+
+imdb %>%
+  select(movie_name) %>%
+  filter(grepl("King", imdb$movie_name))
+
+# case sensitive with all lowercase "king"
+```
