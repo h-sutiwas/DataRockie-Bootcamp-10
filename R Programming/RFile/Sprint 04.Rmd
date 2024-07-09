@@ -141,3 +141,84 @@ imdb %>%
 
 # case sensitive with all lowercase "king"
 ```
+
+## **EP06 - Create New Colunms**
+
+```{r EP06 - Create New Colunms}
+## create new columns
+
+imdb %>%
+  select(movie_name, score, length) %>%
+  mutate(score_group = if_else(score >= 9, "High Rating", "Low Rating"), 
+         length_group = if_else(length >= 120, "Long Film", "Short Film"))
+
+imdb %>%
+  select(movie_name, score) %>%
+  mutate(score = score + 0.1) %>%
+  head(10)
+```
+
+## **EP07 - Arrange Data**
+
+```{r EP07 - Arrange Data}
+## arrange data
+
+head(imdb)
+
+imdb %>%
+  arrange(length) %>%
+  head(10)
+
+imdb %>%
+  arrange(desc(length)) %>% ## descending order
+  head(10)
+
+imdb %>%
+  arrange(rating, desc(length))
+```
+
+## **EP08 - Summary Statistics**
+
+```{r EP08 - Summary Statistics}
+## summarize and group by
+# summarise(name_stat = stat_func())
+# summarise stat groups by rating types
+
+imdb %>%
+  filter(rating != "") %>%
+  group_by(rating) %>%
+  summarise(mean_length = mean(length),
+            sd_length = sd(length),
+            min_length = min(length),
+            max_length = max(length),
+            n = n()
+            )
+```
+
+## **EP09 - Join Tables**
+
+```{r EP09 - Join Tables}
+## join data
+
+favorite_films <- data.frame(id = c(5, 10, 25, 30, 98))
+
+favorite_films %>%
+  inner_join(imdb, by = c("id" = "no"))
+
+# --- Join table favorite_films with imdb by column "id"   ##
+##              inside favorite_films with column "no" ---  #
+```
+
+## **EP10 - Export CSV File**
+
+Tip - วิธีสังเกตว่า functions ไหนเป็น **based R** เก่า หรือ **modern R** ให้ดูที่ตัว `.` ได้เลย ชื่อฟังก์ชันใหม่ๆจะใช้ `_` แทน `.` หมดแล้ว (เขียนแบบ snake case เช่น `hello_world()` เป็นต้น)
+
+```{r EP10 - Export CSV File}
+## write csv file (export result)
+imdb_prep <- imdb %>%
+  select(movie_name, released_year = year, rating, length, score) %>%
+  filter(rating == "R" & released_year > 2000)
+
+## export csv file
+write.csv(imdb_prep, "imdb_prep.csv", row.names = FALSE)
+```
