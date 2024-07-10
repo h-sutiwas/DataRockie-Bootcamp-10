@@ -20,6 +20,7 @@ library(glue)
 library(RPostgreSQL)
 library(lubridate)
 library(sqldf)
+library(jsonlite)
 ```
 
 ## library glue
@@ -219,4 +220,12 @@ dbWriteTable(con, "products", products)
 
 ## get data
 df <- dbGetQuery(con, "select id, product_name from products")
+```
+
+## JSON
+
+```{r JSON}
+## how to read a json file
+my_profile <- fromJSON("../data/my_profile.json")
+my_profile
 ```
