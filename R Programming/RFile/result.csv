@@ -1,17 +1,17 @@
 model,mpg,hp,wt,am
-Merc 450SE,16.4,180,4.07,0
-Merc 450SL,17.3,180,3.73,0
-Merc 450SLC,15.2,180,3.78,0
-Hornet Sportabout,18.7,175,3.44,0
-Pontiac Firebird,19.2,175,3.845,0
-Dodge Challenger,15.5,150,3.52,0
-AMC Javelin,15.2,150,3.435,0
-Merc 280,19.2,123,3.44,0
-Merc 280C,17.8,123,3.44,0
-Hornet 4 Drive,21.4,110,3.215,0
-Valiant,18.1,105,3.46,0
-Ferrari Dino,19.7,175,2.77,1
-Lotus Europa,30.4,113,1.513,1
-Mazda RX4,21,110,2.62,1
-Mazda RX4 Wag,21,110,2.875,1
-Volvo 142E,21.4,109,2.78,1
+Merc 450SE,16.4,180,4.07,Manual
+Merc 450SL,17.3,180,3.73,Manual
+Merc 450SLC,15.2,180,3.78,Manual
+Hornet Sportabout,18.7,175,3.44,Manual
+Pontiac Firebird,19.2,175,3.845,Manual
+Ferrari Dino,19.7,175,2.77,Manual
+Dodge Challenger,15.5,150,3.52,Manual
+AMC Javelin,15.2,150,3.435,Manual
+Merc 280,19.2,123,3.44,Manual
+Merc 280C,17.8,123,3.44,Manual
+Lotus Europa,30.4,113,1.513,Manual
+Mazda RX4,21,110,2.62,Manual
+Mazda RX4 Wag,21,110,2.875,Manual
+Hornet 4 Drive,21.4,110,3.215,Manual
+Volvo 142E,21.4,109,2.78,Manual
+Valiant,18.1,105,3.46,Manual

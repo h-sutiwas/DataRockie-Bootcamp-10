@@ -43,11 +43,11 @@ glue("Hi my name is {my_name}. Today I'm {my_age} years old.")
 
 # 1. select
 # 2. filter
-# 3. arrange
+# 3. arrange 
 # 4. mutate => create new column
 # 5. summarise
 
-mtcars <- rownames_to_column(mtcars, "model")
+carnames <- rownames(mtcars)
 view(mtcars)
 
 # pipeline
@@ -221,6 +221,8 @@ dbWriteTable(con, "products", products)
 ## get data
 df <- dbGetQuery(con, "select id, product_name from products")
 ```
+
+------------------------------------------------------------------------
 
 ## JSON
 
