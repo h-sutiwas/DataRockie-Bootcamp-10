@@ -1,0 +1,6 @@
+{
+    "name": "ham",
+    "age": 22,
+    "movie_lover": true,
+    "fav_movies": ["Home Alone", "Godzilla", "Lord of The Ring"]
+}
