@@ -1,0 +1,78 @@
+---
+title: "Sprint 06 - STAT101 / Intro to Statistics"
+author: "Sutiwas"
+date: "2024-08-06"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Correlation
+
+```{r correlation}
+## correlation
+cor(mtcars$mpg, mtcars$hp)
+cor(mtcars$mpg, mtcars$wt)
+
+plot(mtcars$hp, mtcars$mpg, pch=16)
+plot(mtcars$wt, mtcars$mpg, pch=16)
+plot(mtcars$wt, mtcars$hp, pch=16)
+
+cor(mtcars[, c("mpg", "wt", "hp")])
+
+## dplyr (tidyverse)
+library(tidyverse)
+corMAT <- mtcars %>%
+  select(mpg, wt, hp) %>%
+  cor()
+
+cor.test(mtcars$hp, mtcars$mpg)
+
+```
+
+## Regression
+
+```{r regression}
+## mpg = f(hp)
+lmFIT <- lm(mpg ~ hp, data = mtcars)
+
+summary(lmFIT)
+
+## predicction 1 veh
+lmFIT$coefficients[[1]] + lmFIT$coefficients[[2]]*200
+
+new_cars <- data.frame(
+  hp = c(250, 220, 400, 450, 350)
+)
+
+## predict
+new_cars$mpg_predict <- predict(lmFIT, newdata = new_cars)
+new_cars$hp_predict < NULL
+
+summary(mtcars$hp)
+```
+
+## RMSE
+
+```{r, Root Mean Squared RMSE}
+head(mtcars)
+
+## Multiple Linear Regression
+## mpg = intercept + b0*hp + b1*wt + b2*am
+lmFIT2 <- lm(mpg ~ hp + wt + am, data = mtcars)
+coef <- coef(lmFIT2)
+
+coef[[1]] + coef[[2]]*200 + coef[[3]]*3.5 + coef[[4]]*1
+
+## Build Full Model
+lmFULL <- lm(mpg ~ ., data = mtcars)
+mtcars$pred <- predict(lmFULL)
+
+head(mtcars)
+
+## RMSE
+error <- (mtcars$mpg - mtcars$pred)**2
+rmse <- sqrt(mean(error))
+```
