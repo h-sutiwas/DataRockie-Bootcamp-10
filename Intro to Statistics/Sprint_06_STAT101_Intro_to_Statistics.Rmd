@@ -76,3 +76,30 @@ head(mtcars)
 error <- (mtcars$mpg - mtcars$pred)**2
 rmse <- sqrt(mean(error))
 ```
+
+## Split Data =\> Train Model
+
+```{r Split Data & Train Model}
+## Split Data
+set.seed(42)
+n <- nrow(mtcars)
+id <- sample(1:n, size = 0.8*n)
+train_data <- mtcars[id, ]
+test_data <- mtcars[-id, ]
+
+## Train Model
+model1 <- lm(mpg ~ hp + wt, data = train_data)
+p_train <- predict(model1)
+error_train <- train_data$mpg - p_train
+(rmse_train <- sqrt( mean( error_train**2  ) ))
+
+## Test Model
+p_test <- predict(model1, newdata=test_data)
+error_test <- test_data$mpg - p_test
+(rmse_test <- sqrt( mean( error_test**2  ) ))
+
+## Print results
+cat("RMSE TRAIN:", rmse_train,
+    "\nRMSE_TEST:", rmse_test) ## Overfitting Problem
+
+```
