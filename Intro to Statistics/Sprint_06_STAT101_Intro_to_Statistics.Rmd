@@ -102,3 +102,43 @@ error_test <- test_data$mpg - p_test
 cat("RMSE TRAIN:", rmse_train,
     "\nRMSE_TEST:", rmse_test) ## Overfitting Problem
 ```
+
+## Logistic Regression
+
+```{r Logistic Regression}
+## Logistic Regression
+library(dplyr)
+
+mtcars %>% head()
+
+str(mtcars)
+
+## Convert am to factorized string
+mtcars$am <- factor(mtcars$am,
+                     levels = c(0, 1),
+                     labels = c("Auto", "Manual"))
+
+class(mtcars$am)
+table(mtcars$am)
+
+## Split Data
+set.seed(42)
+n <- nrow(mtcars)
+id <- sample(1:n, size = 0.8*n)
+train_data <- mtcars[id, ]
+test_data <- mtcars[-id, ]
+
+## train model
+logitModel <- glm(am ~ mpg, data = train_data, family = "binomial")
+p_TrainLogit <- predict(logitModel, type = "response") ## probability
+train_data$pred <- if_else(p_TrainLogit >= 0.5, "Manual", "Auto")
+mean(train_data$am == train_data$pred)
+
+## test model
+p_TestLogit <- predict(logitModel, newdata = test_data, 
+                       type = "response") ## probability
+test_data$pred <- if_else(p_TestLogit >= 0.5, 
+                           "Manual", "Auto")
+mean(test_data$am == test_data$pred)
+
+```
